@@ -11,6 +11,11 @@
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
   <title>Loan Calculator</title>
+  <style>
+    #loading, #results {
+      display: none;
+    }
+  </style>
 </head>
 
 <body class="bg-info">
@@ -44,9 +49,9 @@
             </div>
           </form>
           <!-- LOADER HERE -->
-          <!-- <div id="loading">
+          <div id="loading">
             <img src="images/loading.svg" alt="loading">
-          </div> -->
+          </div>
           <!-- RESULTS -->
           <div id="results" class="pt-4">
             <h5>Loan Breakdown</h5>
