@@ -8,6 +8,9 @@ function Book(title, author, isbn) {
 // UI Constructor
 function UI() {}
 
+// Store Constructor
+function Store() {}
+
 // Add book to list
 UI.prototype.addBookToList = function (book) {
   const list = document.getElementById("book-list");
@@ -49,6 +52,7 @@ UI.prototype.showAlert = function (message, className) {
 // Delete Book
 UI.prototype.deleteBook = function (target) {
   if (target.className === "delete-book") {
+    Store.removeBook(target.parentElement.parentElement);
     target.parentElement.parentElement.remove();
   }
 };
@@ -59,6 +63,57 @@ UI.prototype.clearFields = function () {
   document.getElementById("author").value = "";
   document.getElementById("isbn").value = "";
 };
+
+// Get Books from local storage
+Store.getBooks = function () {
+  let books;
+
+  if (localStorage.getItem("books") === null) {
+    books = [];
+  } else {
+    books = JSON.parse(localStorage.getItem("books"));
+  }
+
+  return books;
+};
+
+// Display books to UI from Local Storage
+Store.displayBooks = function () {
+  const books = Store.getBooks();
+  const ui = new UI();
+
+  books.forEach(function (book) {
+    // Add book to UI
+    ui.addBookToList(book);
+  });
+};
+
+// Add book to Local Storage
+Store.addBook = function (book) {
+  const books = Store.getBooks();
+
+  books.push(book);
+
+  localStorage.setItem("books", JSON.stringify(books));
+};
+
+// Remove book from Local Storage
+Store.removeBook = function (book) {
+  // Get Books from Local Storage if any
+  const books = Store.getBooks();
+
+  // Get index of list item
+  let index = [...book.parentElement.children].indexOf(book);
+  console.log(index);
+
+  // Remove Item from list
+  books.splice(index, 1);
+
+  localStorage.setItem("books", JSON.stringify(books));
+};
+
+// DOM Load Event
+document.addEventListener("DOMContentLoaded", Store.displayBooks);
 
 // Event Listerner for add book
 document.getElementById("book-form").addEventListener("submit", function (e) {
@@ -80,6 +135,9 @@ document.getElementById("book-form").addEventListener("submit", function (e) {
   } else {
     // Add book to list
     ui.addBookToList(book);
+
+    // Add to Local Store
+    Store.addBook(book);
 
     // Success Alert
     ui.showAlert("Book added!", "success");
