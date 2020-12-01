@@ -2,10 +2,7 @@
 
 A functional Number guessing game implemented to practice **DOM manipulation** and **Local Storage**.
 
-External resources used include:
-
-- [Bootstrap 4.5](https://getbootstrap.com/docs/4.5/getting-started/introduction)
-- [JQuery 3.5.1 Dependency](https://code.jquery.com/)
+External resources used include [Skeleton CSS Boilerplate](http://getskeleton.com/)
 
 ## Game Rules
 
